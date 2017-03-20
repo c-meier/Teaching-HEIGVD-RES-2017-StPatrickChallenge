@@ -14,7 +14,12 @@ public class StreamProcessorsFactory implements IStreamProcessorsFactory {
 
   @Override
   public IStreamProcessor getProcessor(String processorName) throws UnknownNameException {
-    throw new UnknownNameException("The factory does not know any processor called " + processorName);
+    switch (processorName) {
+      case "e-remover":
+        return new ERemoverStreamProcessor();
+      default:
+        throw new UnknownNameException("The factory does not know any processor called " + processorName);
+    }
   }
 
 }

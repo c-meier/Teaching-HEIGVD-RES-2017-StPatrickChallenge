@@ -1,24 +1,18 @@
 package ch.heigvd.res.stpatrick;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * The responsibility of this class is to read characters from an input
- * reader, to process them, and to write them to an output writer.
- * 
- * It is called "basic" stream processor, because it does nothing with the
- * characters: it writes them without transforming them.
+ * reader, to process them, and to write them to an output writer except
+ * the letter e or E.
  * 
  * Note: clients do not instantiate this class directly. They obtain instances
  * of this class via the StreamProcessorsFactory.
  * 
- * @author Olivier Liechti
+ * @author Christopher Meier
  */
-class BasicStreamProcessor implements IStreamProcessor {
+class ERemoverStreamProcessor implements IStreamProcessor {
 
   @Override
   public void process(Reader in, Writer out) throws IOException {
@@ -26,7 +20,8 @@ class BasicStreamProcessor implements IStreamProcessor {
     BufferedWriter bw = new BufferedWriter(out);
     int c = br.read();
     while (c != -1) {
-      bw.write(c);
+      if(Character.toUpperCase(c) != 'E')
+        bw.write(c);
       c = br.read();
     }
     bw.flush();
